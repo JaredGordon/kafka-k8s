@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    run: zoo
+  name: zoo
+  selfLink: /api/v1/namespaces/default/services/zoo
+spec:
+  ports:
+  - port: 2181
+    protocol: TCP
+    targetPort: 2181
+  selector:
+    run: zoo
+  sessionAffinity: None
+  type: LoadBalancer
