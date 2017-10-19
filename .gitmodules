@@ -1,3 +1,0 @@
-[submodule "kafka-service-broker"]
-	path = kafka-service-broker
-	url = https://github.com/cf-platform-eng/kafka-service-broker
