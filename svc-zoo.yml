@@ -3,15 +3,15 @@ kind: Service
 metadata:
   creationTimestamp: null
   labels:
-    run: zoo
-  name: zoo
-  selfLink: /api/v1/namespaces/default/services/zoo
+    run: zookeeper
+  name: zookeeper
+  selfLink: /api/v1/namespaces/default/services/zookeeper
 spec:
   ports:
   - port: 2181
     protocol: TCP
     targetPort: 2181
   selector:
-    run: zoo
+    run: zookeeper
   sessionAffinity: None
   type: LoadBalancer
