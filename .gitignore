@@ -1,2 +1,3 @@
 .idea
 kafka-k8s.iml
+target
