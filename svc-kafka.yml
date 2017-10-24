@@ -3,15 +3,15 @@ kind: Service
 metadata:
   creationTimestamp: null
   labels:
-    run: kafka
-  name: kafka
-  selfLink: /api/v1/namespaces/default/services/kafka
+    run: kafka-k8s
+  name: kafka-k8s
+  selfLink: /api/v1/namespaces/default/services/kafka-k8s
 spec:
   ports:
   - port: 9092
     protocol: TCP
     targetPort: 9092
   selector:
-    run: kafka
+    run: kafka-k8s
   sessionAffinity: None
   type: NodePort

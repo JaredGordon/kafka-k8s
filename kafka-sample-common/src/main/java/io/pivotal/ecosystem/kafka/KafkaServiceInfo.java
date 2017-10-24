@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (C) 2016-Present Pivotal Software, Inc. All rights reserved.
  * <p>
  * This program and the accompanying materials are made available under
@@ -15,17 +15,26 @@
  * limitations under the License.
  */
 
-package io.pivotal.cf.service.producer.app;
+package io.pivotal.ecosystem.kafka;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.scheduling.annotation.EnableScheduling;
+import lombok.Data;
 
-@SpringBootApplication
-@EnableScheduling
-public class Application {
+@Data
+class KafkaServiceInfo {
 
-    public static void main(String[] args) throws Exception {
-        SpringApplication.run(Application.class, args);
-    }
+    private String bootstrapServers;
+    private int retries;
+    private int batchSize;
+    private int lingerMs;
+    private int bufferMemory;
+    private Class keySerializer;
+    private Class valueSerializer;
+    private Class keyDeserializer;
+    private Class valueDeserializer;
+    private String topicName;
+    private String groudId;
+    private boolean enableAutoCommit;
+    private int autoCommitInterval;
+    private int sessionTimeout;
+
 }

@@ -6,14 +6,14 @@ metadata:
   creationTimestamp: null
   generation: 1
   labels:
-    run: kafka
-  name: kafka
-  selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/kafka
+    run: kafka-k8s
+  name: kafka-k8s
+  selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/kafka-k8s
 spec:
   replicas: 1
   selector:
     matchLabels:
-      run: kafka
+      run: kafka-k8s
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -23,12 +23,12 @@ spec:
     metadata:
       creationTimestamp: null
       labels:
-        run: kafka
+        run: kafka-k8s
     spec:
       containers:
-      - image: ches/kafka:latest
+      - image: confluent/kafka:latest
         imagePullPolicy: Always
-        name: kafka
+        name: kafka-k8s
         resources: {}
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File

@@ -1,4 +1,4 @@
-/**
+/*
  Copyright (C) 2016-Present Pivotal Software, Inc. All rights reserved.
 
  This program and the accompanying materials are made available under
@@ -15,7 +15,7 @@
  limitations under the License.
  */
 
-package io.pivotal.ecosystem.kafka.consumer;
+package io.pivotal.ecosystem.kafka;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (C) 2016-Present Pivotal Software, Inc. All rights reserved.
  * <p>
  * This program and the accompanying materials are made available under
@@ -15,23 +15,17 @@
  * limitations under the License.
  */
 
-package io.pivotal.ecosystem.kafka.consumer;
+package io.pivotal.ecosystem.kafka;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
-@Data
-@AllArgsConstructor
-public class KafkaServiceInfo {
+@SpringBootApplication
+@EnableScheduling
+public class Application {
 
-    static final String URI_SCHEME = "kafka";
-
-    private String id;
-    private String hosts;
-    private String uri;
-    private String retriesConfig;
-    private String keySerializerClassConfig;
-    private String valueSerializerClassConfig;
-    private String topicName;
-
+    public static void main(String[] args) throws Exception {
+        SpringApplication.run(Application.class, args);
+    }
 }

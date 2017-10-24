@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (C) 2016-Present Pivotal Software, Inc. All rights reserved.
  * <p>
  * This program and the accompanying materials are made available under
@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 
-package io.pivotal.cf.service.producer.app;
+package io.pivotal.ecosystem.kafka;
 
-import io.pivotal.ecosystem.kafka.consumer.KafkaRepository;
+import io.pivotal.ecosystem.kafka.KafkaRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;

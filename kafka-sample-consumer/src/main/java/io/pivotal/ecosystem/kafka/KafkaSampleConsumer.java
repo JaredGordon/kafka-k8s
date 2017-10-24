@@ -16,7 +16,7 @@
  limitations under the License.
  */
 
-package io.pivotal.ecosystem.kafka.consumer;
+package io.pivotal.ecosystem.kafka;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
