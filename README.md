@@ -27,7 +27,7 @@ docker rmi -f $(docker images -q)
 try on k8s:
 ```bash
 kubectl run zoo --image=zookeeper:latest
-kubectl logs <pod name>
+kubectl logs pod_name
 ```
 
 seems to be running created a pod, a deployment, and a replica set. image says it is exposing or needs ports 2888, 3888, 2181. test by bashing into a pod and trying a command?
@@ -133,6 +133,8 @@ kafka/bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test
 kafka/bin/kafka-console-consumer.sh --zookeeper localhost:2181 --topic test --from-beginning
 ```
 
+need to mess with the kafka image here: https://github.com/confluentinc/docker-images.git
+
 running into connectivity issues with kafka, try editing server.properties to add a listeners line:
 ```
 listeners=PLAINTEXT://0.0.0.0:9092
@@ -143,8 +145,10 @@ then added this line to the Dockerfile
 ADD server.properties /etc/kafka/
 ```
 
+```bash
 docker build -t jg/kafka .
 docker run -d --name jg-kafka -p 9092:9092 --link zookeeper:zookeeper jg/kafka
+```
 
 ok, that worked (tested via the two spring programs)!
 
