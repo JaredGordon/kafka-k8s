@@ -6,8 +6,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>kafka-pub-sub</artifactId>
         <groupId>io.pivotal.ecosystem</groupId>
+        <artifactId>kafka-k8s</artifactId>
         <version>1.0.0</version>
     </parent>
 

@@ -26,8 +26,9 @@ docker rmi -f $(docker images -q)
 
 try on k8s:
 ```bash
-kubectl run zoo --image=zookeeper:latest
+kubectl run zookeeper --image=zookeeper:latest
 kubectl logs pod_name
+kubectl expose deployment zookeeper --port=2181 --target-port=2181
 ```
 
 seems to be running created a pod, a deployment, and a replica set. image says it is exposing or needs ports 2888, 3888, 2181. test by bashing into a pod and trying a command?
@@ -38,19 +39,13 @@ bin/zkCli.sh
 
 pull some configs to start with:
 ```bash
-kubectl get deployment/zoo -o yaml --export > deployment-zoo.yml
-```
-
-edit and add port 2182 as the container port, update:
-```bash
-kubectl replace --save-config -f deployment-zoo.yml
-kubectl expose deployment zoo --port=2181 --target-port=2181
-kubectl get svc/zoo -o yaml --export > svc-zoo.yml
+kubectl get deployment/zookeeper -o yaml --export > deployment-zookeeper.yml
+kubectl get svc/zookeeper -o yaml --export > svc-zookeeper.yml
 ```
 
 edit the file, get rid of the status field, make it a load balancer type for now, then:
 ```bash
-kubectl replace --save-config -f svc-zoo.yml
+kubectl replace --save-config -f svc-zookeeper.yml
 ```
 
 ## kafka
@@ -103,7 +98,7 @@ kubectl apply -f .
 running, but are they working? testing...:
 need a small program to test it out. won't run inside of kafka pod since the jmx stuff is in conflict.
 need to create a service for kafka to expose it's service port.
-```
+```bash
 kubectl expose deployment kafka --port=9092 --target-port=9092
 ```
 edit (made it a NodePort type)
@@ -137,7 +132,7 @@ need to mess with the kafka image here: https://github.com/confluentinc/docker-i
 
 running into connectivity issues with kafka, try editing server.properties to add a listeners line:
 ```
-listeners=PLAINTEXT://0.0.0.0:9092
+listeners=PLAINTEXT://:9092
 ```
 
 then added this line to the Dockerfile
@@ -152,5 +147,40 @@ docker run -d --name jg-kafka -p 9092:9092 --link zookeeper:zookeeper jg/kafka
 
 ok, that worked (tested via the two spring programs)!
 
+## make this stuff work on k8s
+let's start with imperative
 
+```bash
+kubectl run zookeeper --image=zookeeper:latest
+```
+
+need to pull the customized kafka image from somewhere... push to dockerhub
+
+```bash
+docker login
+docker images
+docker tag 197fda0c7673 jaredgordon/kafka:latest
+docker push jaredgordon/kafka
+```
+
+worked, now try on k8s...
+push zookeeper to k8s and create a service (LoadBalancer for now, fix later) as above
+push local modified docker image
+```bash
+kubectl run jg-kafka --image=jaredgordon/kafka:latest
+kubectl expose deployment jg-kafka --port=9092 --target-port=9092 --type=LoadBalancer
+kubectl get deploy/jg-kafka -o yaml --export > deployment-kafka.yml
+kubectl get svc/jg-kafka -o yaml --export > svc-kafka.yml
+```
+
+edit the service, make it a LoadBalancer, expose via minikube
+
+ok, now getting access to kafka and zoo, but running into wierd kafka issues.
+
+## stepping back again
+let's look at an existing helm chart and work backwards (if it works)...
+
+first off, switch over to gcp, since minikube is causing my laptop to overheat.
+
+### gcp
 

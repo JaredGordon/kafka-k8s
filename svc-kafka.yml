@@ -3,15 +3,19 @@ kind: Service
 metadata:
   creationTimestamp: null
   labels:
-    run: kafka-k8s
-  name: kafka-k8s
-  selfLink: /api/v1/namespaces/default/services/kafka-k8s
+    run: jg-kafka
+  name: jg-kafka
+  selfLink: /api/v1/namespaces/default/services/jg-kafka
 spec:
+  externalTrafficPolicy: Cluster
   ports:
-  - port: 9092
+  - nodePort: 30158
+    port: 9092
     protocol: TCP
     targetPort: 9092
   selector:
-    run: kafka-k8s
+    run: jg-kafka
   sessionAffinity: None
-  type: NodePort
+  type: LoadBalancer
+status:
+  loadBalancer: {}

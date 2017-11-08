@@ -15,3 +15,5 @@ spec:
     run: zookeeper
   sessionAffinity: None
   type: LoadBalancer
+status:
+  loadBalancer: {}

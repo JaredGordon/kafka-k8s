@@ -29,8 +29,6 @@ spec:
       - image: zookeeper:latest
         imagePullPolicy: Always
         name: zookeeper
-        ports:
-        - containerPort: 2181
         resources: {}
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File

@@ -7,7 +7,7 @@
     <artifactId>kafka-sample-producer</artifactId>
 
     <parent>
-        <artifactId>kafka-pub-sub</artifactId>
+        <artifactId>kafka-k8s</artifactId>
         <groupId>io.pivotal.ecosystem</groupId>
         <version>1.0.0</version>
     </parent>
@@ -15,7 +15,7 @@
     <dependencies>
 
         <dependency>
-            <groupId>${pom.parent.groupId}</groupId>
+            <groupId>${project.parent.groupId}</groupId>
             <artifactId>kafka-sample-common</artifactId>
         </dependency>
 

@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.pivotal.ecosystem</groupId>
-    <artifactId>kafka-pub-sub</artifactId>
+    <artifactId>kafka-k8s</artifactId>
     <version>1.0.0</version>
     <packaging>pom</packaging>
 
@@ -27,9 +27,9 @@
         <dependencies>
 
             <dependency>
-                <groupId>${pom.groupId}</groupId>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>kafka-sample-common</artifactId>
-                <version>${pom.version}</version>
+                <version>${project.version}</version>
             </dependency>
 
             <dependency>
