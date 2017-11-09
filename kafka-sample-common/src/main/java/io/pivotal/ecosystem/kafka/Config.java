@@ -14,7 +14,7 @@ public class Config {
     public KafkaServiceInfo kafkaServiceInfo() {
         KafkaServiceInfo info = new KafkaServiceInfo();
 
-        info.setBootstrapServers("192.168.99.100:30158");
+        info.setBootstrapServers("35.196.82.166:9092");
         info.setRetries(0);
         info.setBatchSize(16384);
         info.setLingerMs(1);

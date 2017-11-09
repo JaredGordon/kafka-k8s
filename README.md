@@ -183,4 +183,42 @@ let's look at an existing helm chart and work backwards (if it works)...
 first off, switch over to gcp, since minikube is causing my laptop to overheat.
 
 ### gcp
+https://cloud.google.com/container-engine/docs/tutorials/hello-app
+
+### the chart
+kubectl proxy
+localhost:8001/ui to see the dashboard
+
+then, see this: https://github.com/kubernetes/charts/tree/master/incubator/kafka
+
+helm init
+helm repo add incubator http://storage.googleapis.com/kubernetes-charts-incubator
+helm install --name my-kafka incubator/kafka
+helm status my-kafka
+
+verified with their test pod
+kubectl -n default exec -ti testclient -- ./bin/kafka-topics.sh --zookeeper my-kafka-zookeeper:2181 --list
+
+all of the kafka parts are "ClusterIP", accessible only inside the cluster. Which should be "LoadBalance"?
+
+need to modify the chart, so clone, edit and re-deploy. Added type: LoadBalancer to service-brokers.yaml
+
+helm dep list
+helm repo add incubator http://storage.googleapis.com/kubernetes-charts-incubator
+helm dep update
+helm dep build
+helm lint .
+helm upgrade my-kafka .
+helm history my-kafka
+
+cool!
+
+I can nc the public ip/port, and when I run my consumer it created the topic. Can see this happening in the kafka logs.
+
+ran this
+kubectl -n default exec -ti testclient -- ./bin/kafka-topics.sh --zookeeper my-kafka-zookeeper:2181 --list
+
+and saw that zoo says the topic exists.
+
+but... producer times out with metadata issues. maybe ports need to be opened?
 
